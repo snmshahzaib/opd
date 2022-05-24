@@ -19,6 +19,7 @@ class CreateAppointmentsTable extends Migration
             $table->integer('patient_id')->unsigned();
             $table->date('appointment_date');
             $table->time('appointment_time');
+            $table->string('appointment_type');
             $table->string('discription');
             $table->timestamps();
         });
