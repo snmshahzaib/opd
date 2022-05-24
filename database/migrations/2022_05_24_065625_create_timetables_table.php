@@ -15,8 +15,9 @@ class CreateTimetablesTable extends Migration
     {
         Schema::create('timetables', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('Time');
+            $table->foreignId('doctor_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->time('starting_time');
+            $table->time('ending_time');
             $table->timestamps();
         });
     }

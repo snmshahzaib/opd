@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaymentsTable extends Migration
+class DepartmentDoctor extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreatePaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('department_doctor', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('appointment_id')->constrained('appointments')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('payment');
-            $table->string('status');
+            $table->foreignId('doctor_id')->constrained('doctors')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('department_id')->constrained('departments')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreatePaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('department_doctor');
     }
 }
