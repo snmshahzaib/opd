@@ -37,6 +37,11 @@ Route::get('patient', function () {
     return view('patient');
 })->middleware(PatientArea::class);
 
-Route::get('doctor', function () {
-    return view('doctor');
-})->middleware(DoctorArea::class);
+// Route::get('doctor', function () {
+//     return view('doctor');
+// })->middleware(DoctorArea::class);
+
+Route::middleware(['doctor_area'])->group(function () {
+    Route::get('doctor', 'HomeController@doctor');
+    Route::get('patient', 'HomeController@patient');
+});
