@@ -18,7 +18,7 @@ class CreatePaymentsTable extends Migration
             $table->foreignId('appointment_id')->constrained('appointments')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('payment_id');
             $table->string('payment');
-            $table->string('status');
+            $table->string('status');  
             $table->timestamps();
         });
     }

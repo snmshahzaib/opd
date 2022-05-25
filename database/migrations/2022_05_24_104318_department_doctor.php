@@ -15,7 +15,7 @@ class DepartmentDoctor extends Migration
     {
         Schema::create('department_doctor', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('doctor_id')->constrained('doctors')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('doctor_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('department_id')->constrained('departments')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
