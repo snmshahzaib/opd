@@ -21,27 +21,29 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
-// Route::prefix('admin')->middleware('admin_area')->group(function(){
-//     Route::get('/home', 'HomeController@index')->name('home');
-// });
+Route::get('/home', 'HomeController@index')->name('home')->middleware(PatientArea::class);
+Route::prefix('admin')->middleware('admin_area')->group(function(){
+    Route::get('/dashboard', 'HomeController@admin');
+    Route::get('/departments', 'DepartmentController@index');
+    Route::post('/add_department', 'DepartmentController@store');
+    Route::get('/department_delete/{id}', 'DepartmentController@destroy');
+    Route::post('/department_edit/{id}', 'DepartmentController@update')->name('department.update');
+});
 
-// Route::get('admin', function () {
-//     return view('admin');
-// })->middleware('admin_area');
-Route::get('admin', function () {
-    return view('admin');
-})->middleware(AdminArea::class);
-
-Route::get('patient', function () {
-    return view('patient');
-})->middleware(PatientArea::class);
+Route::prefix('doctor')->middleware('doctor_area')->group(function(){
+    Route::get('/dashboard', 'HomeController@doctor');
+});
+// ----------------------------------------------------------------------
+// Route::get('patient', function () {
+//     return view('patient');
+// })->middleware(PatientArea::class);
 
 // Route::get('doctor', function () {
 //     return view('doctor');
 // })->middleware(DoctorArea::class);
 
-Route::middleware(['doctor_area'])->group(function () {
-    Route::get('doctor', 'HomeController@doctor');
-    Route::get('patient', 'HomeController@patient');
-});
+// Route::middleware(['doctor_area'])->group(function () {
+//     Route::get('doctor', 'HomeController@doctor');
+//     Route::get('patient', 'HomeController@patient');
+// });
+// ------------------------------------------------------------------------

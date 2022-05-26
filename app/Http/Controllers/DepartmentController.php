@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Department;
+use App\Models\Department;
 use Illuminate\Http\Request;
+use Auth;
 
 class DepartmentController extends Controller
 {
@@ -14,7 +15,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+        return view('departments')->with('departArr', Department::all());;
     }
 
     /**
@@ -24,7 +25,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +36,14 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            $this->cleanData($data);
+            $obj = new Department;
+            $data['created_by'] = Auth::user()->id;
+            $obj->insert($data);
+        }
+            return redirect('admin/departments');
     }
 
     /**
@@ -69,7 +77,13 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, Department $department)
     {
-        //
+        if($request->isMethod('post')){
+            $data = $request->all();
+            $this->cleanData($data);
+            $Obj = Department::find($request->id);
+            $Obj->update($data); 
+        }
+        return redirect('admin/departments');
     }
 
     /**
@@ -78,8 +92,18 @@ class DepartmentController extends Controller
      * @param  \App\Department  $department
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Department $department)
+    public function destroy(Department $department, $id)
     {
-        //
+        Department::destroy($id);
+        return redirect('admin/departments');
+    }
+    public function cleanData(&$data) {
+        $unset = ['ConfirmPassword','q','_token'];
+        foreach ($unset as $value) {
+            if(array_key_exists ($value,$data))  {
+                unset($data[$value]);
+            }
+        }
+
     }
 }
