@@ -27,7 +27,10 @@ Route::prefix('admin')->middleware('admin_area')->group(function(){
     Route::get('/departments', 'DepartmentController@index');
     Route::post('/add_department', 'DepartmentController@store');
     Route::get('/department_delete/{id}', 'DepartmentController@destroy');
-    Route::post('/department_edit/{id}', 'DepartmentController@update')->name('department.update');
+    Route::post('/department_update/{id}', 'DepartmentController@update')->name('department.update');
+    Route::post('/add_doctor', 'DepartmentController@add_Doctor')->name('department.add_doctor');
+    // ...................
+    // Route::get('/doctors', 'DepartmentController@index');
 });
 
 Route::prefix('doctor')->middleware('doctor_area')->group(function(){

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use Auth;
+use App\User;
 
 class DepartmentController extends Controller
 {
@@ -15,7 +16,15 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        return view('departments')->with('departArr', Department::all());;
+        $departments = Department::all();
+        $doctors = User::where('role', 'doctor')->get(['id','name']);
+        // $doctors = User::table('users')->where('role', 'doctor')->all();
+        // dd($doctors);
+        $data = [];
+        $data['doctors'] = $doctors;
+        $data['departArr'] = $departments;
+        
+        return view('departments', $data);
     }
 
     /**
@@ -96,6 +105,24 @@ class DepartmentController extends Controller
     {
         Department::destroy($id);
         return redirect('admin/departments');
+    }
+    public function add_Doctor(Request $request){
+        if ($request->isMethod('post')) {
+
+            $data = $request->all();
+            dd($data);
+            $this->cleanData($data);
+            $obj = new Product;
+            $data['user_id'] = Auth::user()->id;
+
+            // $createdProduct = $obj->create($data);
+            $catId = $request->categories;
+            foreach ($catId as $id) {
+                $createdProduct->categories()->attach($id);
+            }
+            
+        }
+            return redirect('admin/departments');
     }
     public function cleanData(&$data) {
         $unset = ['ConfirmPassword','q','_token'];

@@ -143,15 +143,23 @@
               <span class="menu-title">Departments</span>
             </a>
           </li>
-          <li class="nav-item menu-items">
+          {{-- <li class="nav-item menu-items">
             <a class="nav-link" href="pages/forms/basic_elements.html">
               <span class="menu-icon">
                 <i class="mdi mdi-playlist-play"></i>
               </span>
               <span class="menu-title">Form Elements</span>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item menu-items">
+            <a class="nav-link" href="doctors">
+              <span class="menu-icon">
+                <i class="mdi mdi-file-document-box"></i>
+              </span>
+              <span class="menu-title">Doctors</span>
+            </a>
+          </li>
+          {{-- <li class="nav-item menu-items">
             <a class="nav-link" href="pages/tables/basic-table.html">
               <span class="menu-icon">
                 <i class="mdi mdi-table-large"></i>
@@ -200,7 +208,7 @@
               </span>
               <span class="menu-title">Documentation</span>
             </a>
-          </li>
+          </li> --}}
         </ul>
       </nav>
       <!-- partial -->
